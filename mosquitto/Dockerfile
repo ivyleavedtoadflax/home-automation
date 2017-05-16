@@ -1,7 +1,9 @@
-FROM ubuntu:latest
+FROM armhf/ubuntu:latest
 
-RUN apt update -qq && apt install -y python-software-properties
-RUN apt update -qq && apt install -y mosquitto
+RUN apt update -y \
+	&&  apt install -y python-software-properties \
+	&&  apt update -y \
+	&&  apt install -y mosquitto
 
 EXPOSE 1883
 
