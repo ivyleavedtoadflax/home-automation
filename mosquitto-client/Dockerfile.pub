@@ -1,7 +1,8 @@
-FROM armhf/ubuntu:latest
+FROM armhf/ubuntu:16:04
 
-RUN apt update -qq && apt install -y python-software-properties
-RUN apt update -qq && apt install -y mosquitto-clients
+RUN apt-get update -y \
+	&& apt-get install -y python-software-properties
+	&& apt-get install -y mosquitto-clients
 
-ENTRYPOINT [ "mosquitto_pub", "-h", "mosquitto" ]
+ENTRYPOINT [ "mosquitto_pub", "-h", "mqtt.local" ]
 CMD [ "-t", "test", "-m", "Hello World" ]
