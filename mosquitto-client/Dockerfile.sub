@@ -2,7 +2,8 @@ FROM armhf/ubuntu:16.04
 
 RUN apt-get update -y \
 	&& apt-get install -y python-software-properties
+RUN apt-get update -y \
 	&& apt-get install -y mosquitto-clients
 
-ENTRYPOINT [ "mosquitto_sub", "-h", "mqtt.local" ]
-CMD [ "-t", "test" ]
+ENTRYPOINT ["mosquitto_sub", "-h", "mqtt.local", "-u", "default", "-P", "pzcB&HQRUoH7ef5xFjxZB74R"]
+CMD ["-t", "test" ]

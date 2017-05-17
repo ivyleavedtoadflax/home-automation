@@ -6,18 +6,16 @@ services:
       dockerfile: mosquitto/Dockerfile
     ports:
       - "1883:1883"
-
+ 
   mosquitto-subscriber:
+    env_file: .env
+    command: [-t, test]
     build:
-      context: .
-      dockerfile: mosquitto-client/Dockerfile.sub
+      context: mosquitto-client
+      dockerfile: Dockerfile.sub
+    volumes:
+      - ./ca:/ca
+    links:
+      - mosquitto:mqtt.local
     depends_on: 
       - mosquitto
-
-  mosquitto-publisher:
-    build:
-      context: .
-      dockerfile: mosquitto-client/Dockerfile.pub
-    depends_on:
-      - mosquitto
-      - mosquitto-subscriber
