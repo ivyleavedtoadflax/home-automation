@@ -5,5 +5,5 @@ RUN apt-get update -y \
 RUN apt-get update -y \
 	&& apt-get install -y mosquitto-clients
 
-ENTRYPOINT ["mosquitto_sub", "-h", "mqtt.local", "-u", "default", "-P", "pzcB&HQRUoH7ef5xFjxZB74R"]
-CMD ["-t", "test" ]
+ENTRYPOINT [ "mosquitto_sub", "-h", "mqtt.local", "-p", "8883", "--cafile", "/ca/ca.crt.pem", "--cert", "/ca/mqtt-client.local.crt.pem", "--key", "/ca/mqtt-client.local.key.pem" ]
+CMD [ "-t", "test" ]

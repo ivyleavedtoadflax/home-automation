@@ -5,9 +5,12 @@ RUN apt-get update -y \
 RUN apt-get update -y \
 	&& apt-get install -y mosquitto
 
+RUN mkdir /ca
+
 COPY ./mosquitto/etc/mosquitto.conf /etc/mosquitto/mosquitto.conf
 COPY ./mosquitto/etc/passwd /etc/mosquitto/passwd
+COPY ./mosquitto/etc/bridge.conf /etc/mosquitto/bridge.conf 
 
-EXPOSE 1883
+EXPOSE 8883
 
-CMD mosquitto
+CMD mosquitto -c /etc/mosquitto/mosquitto.conf

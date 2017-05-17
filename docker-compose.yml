@@ -1,15 +1,42 @@
 version: '2'
 services:
+
+  certificates:
+    build:
+      context: certificates
+      dockerfile: Dockerfile
+    volumes:
+      - ./ca:/ca_mount
+    command: [ '/bin/sh', '-c', 'cp /ca/* /ca_mount' ]
+ 
   mosquitto:
     build:
       context: .
       dockerfile: mosquitto/Dockerfile
     ports:
       - "1883:1883"
+    volumes:
+      - ./ca:/ca
+    depends_on:
+      - certificates
+  
+  mosquitto-bridge:
+    build:
+      context: .
+      dockerfile: mosquitto/Dockerfile
+    command: mosquitto -c /etc/mosquitto/bridge.conf
+    volumes:
+      - ./ca:/ca
+    links:
+      - mosquitto:mqtt.local
+    ports:
+      - "8883:8883"
+    depends_on:
+      - certificates
+      - mosquitto
  
   mosquitto-subscriber:
     env_file: .env
-    command: [-t, test]
     build:
       context: mosquitto-client
       dockerfile: Dockerfile.sub
