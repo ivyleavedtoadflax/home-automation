@@ -24,7 +24,7 @@ services:
     build:
       context: .
       dockerfile: mosquitto/Dockerfile
-    command: mosquitto -c /etc/mosquitto/bridge.conf
+    command: mosquitto -c /etc/mosquitto/bridge.conf -v
     volumes:
       - ./ca:/ca
     links:
@@ -36,10 +36,9 @@ services:
       - mosquitto
  
   mosquitto-subscriber:
-    env_file: .env
     build:
-      context: mosquitto-client
-      dockerfile: Dockerfile.sub
+      context: .
+      dockerfile: mosquitto-client/Dockerfile.sub
     volumes:
       - ./ca:/ca
     links:
