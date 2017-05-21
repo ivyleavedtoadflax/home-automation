@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/pi/home-automation
+cd /home/pi/homeautomation
 
 # See http://lukeswart.net/2016/03/lets-deploy-part-1/
 # env variables in docker-compose seem a bit patchy.

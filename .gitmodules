@@ -1,6 +1,9 @@
 [submodule "rpimongo"]
 	path = rpimongo
 	url = git@github.com:ivyleavedtoadflax/rpimongo.git
-[submodule "pymongopahologger"]
-	path = pymongopahologger
+[submodule "mongo-logger/-f"]
+	path = mongo-logger/pymongopahologger
+	url = git@github.com:ivyleavedtoadflax/pymongopahologger.git
+[submodule "mongo-logger/pymongopahologger"]
+	path = mongo-logger/pymongopahologger
 	url = git@github.com:ivyleavedtoadflax/pymongopahologger.git
