@@ -1,13 +1,13 @@
 version: '2'
 services:
 
-  certificates:
-    build:
-      context: certificates
-      dockerfile: Dockerfile
-    volumes:
-      - ./ca:/ca_mount
-    command: [ '/bin/sh', '-c', 'cp /ca/* /ca_mount' ]
+        #  certificates:
+        #    build:
+        #      context: certificates
+        #      dockerfile: Dockerfile
+        #    volumes:
+        #      - ./ca:/ca_mount
+        #    command: [ '/bin/sh', '-c', 'cp /ca/* /ca_mount' ]
  
   mosquitto:
     build:
@@ -17,30 +17,40 @@ services:
       - "1883:1883"
     volumes:
       - ./ca:/ca
-    depends_on:
-      - certificates
+        #    depends_on:
+        #      - certificates
   
-  mosquitto-bridge:
-    build:
-      context: .
-      dockerfile: mosquitto/Dockerfile
-    command: mosquitto -c /etc/mosquitto/bridge.conf -v
-    volumes:
-      - ./ca:/ca
-    links:
-      - mosquitto:mqtt.local
-    ports:
-      - "8883:8883"
-    depends_on:
-      - certificates
-      - mosquitto
+#  mosquitto-bridge:
+#    build:
+#      context: .
+#      dockerfile: mosquitto/Dockerfile
+#    command: mosquitto -c /etc/mosquitto/bridge.conf -v
+#    volumes:
+#      - ./ca:/ca
+#    links:
+#      - mosquitto:mqtt.local
+#    ports:
+#      - "8883:8883"
+#    depends_on:
+#      - certificates
+#      - mosquitto
  
   mosquitto-subscriber:
+    env_file: .env
     build:
       context: .
       dockerfile: mosquitto-client/Dockerfile.sub
-    volumes:
-      - ./ca:/ca
+    entrypoint:
+      - "mosquitto_sub"
+      - "-h"
+      - "${MQTT_HOST}"
+      - "-p"
+      - "${MQTT_PORT}"
+      - "-u"
+      - "${MQTT_USERNAME}"
+      - "-P"
+      - "${MQTT_PASSWORD}"
+    command: ["-t", "${MQTT_TOPIC}"]
     links:
       - mosquitto:mqtt.local
     depends_on: 
