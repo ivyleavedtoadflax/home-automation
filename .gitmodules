@@ -1,0 +1,3 @@
+[submodule "rpimongo"]
+	path = rpimongo
+	url = git@github.com:ivyleavedtoadflax/rpimongo.git

@@ -1,3 +1,4 @@
 mosquitto/etc/passwd
 .env
 ca/
+data/
