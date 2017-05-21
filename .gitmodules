@@ -1,3 +1,6 @@
 [submodule "rpimongo"]
 	path = rpimongo
 	url = git@github.com:ivyleavedtoadflax/rpimongo.git
+[submodule "pymongopahologger"]
+	path = pymongopahologger
+	url = git@github.com:ivyleavedtoadflax/pymongopahologger.git
