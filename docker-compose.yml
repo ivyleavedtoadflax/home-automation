@@ -55,3 +55,23 @@ services:
       - mosquitto:mqtt.local
     depends_on: 
       - mosquitto
+
+  mongodb:
+    build:
+      context: .
+      dockerfile: rpimongo/Dockerfile
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+#    entrypoint:
+#      - "mosquitto_sub"
+#      - "-h"
+#      - "${MQTT_HOST}"
+#      - "-p"
+#      - "${MQTT_PORT}"
+#      - "-u"
+#      - "${MQTT_USERNAME}"
+#      - "-P"
+#      - "${MQTT_PASSWORD}"
+#    command: ["-t", "${MQTT_TOPIC}"]
